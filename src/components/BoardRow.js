@@ -35,7 +35,7 @@ class BoardRow extends React.Component {
     compareWords(wordToGuess, wordToAnalyze) {
         var stylesToSet = []
 
-        if (wordToGuess.length != wordToAnalyze.length) {
+        if (wordToGuess.length !== wordToAnalyze.length) {
             console.log(`Word lengths don't match: ${wordToGuess}, ${wordToAnalyze}`)
         }
 
@@ -87,10 +87,10 @@ class BoardRow extends React.Component {
                 */
                 const tileStyleIndex = stylesToSet[index];
                 const tile = `row${rowToUpdate}tile${index}`
-                if (tileStyleIndex == -1) {
+                if (tileStyleIndex === -1) {
                     // grey
                     document.getElementById(tile).style = "background-color: grey"
-                } else if (index == tileStyleIndex) {
+                } else if (index === tileStyleIndex) {
                     // yellow
                     document.getElementById(tile).style = "background-color: green"
                 } else {
@@ -110,7 +110,7 @@ class BoardRow extends React.Component {
     }
 
     render() {
-        var isActive = `${this.props.row == this.props.state.state.currentRow? "active" : ""}`
+        var isActive = `${this.props.row === this.props.state.state.currentRow? "active" : ""}`
         //var rowClassName = `row row${this.props.row} ${isActive}}`
         let currentRow = this.props.state.state.currentRow // currentRow === numberOfPreviousGuesses
         

@@ -129,6 +129,23 @@ class App extends React.Component {
         }))
       }
     }
+
+    if (this.state.currnetRow > 5 || this.state.previousGuesses.length === 6) {
+      this.checkIfGameOver()
+    }
+
+  }
+
+  checkIfGameOver = () => {
+    if (this.state.currentGuess === this.state.wordToGuess) {
+        this.setState(prevState => ({
+          message:`Wow that was close: ${this.state.wordToGuess}`
+        }))
+    } else {
+      this.setState(prevState => ({
+        message:`You lost, the word was ${this.state.wordToGuess}`
+      }))
+    }
   }
 
   handleKeyBoard = (event) => {
@@ -136,18 +153,6 @@ class App extends React.Component {
     this.onLetterChange(key)
   }
 
-  componentDidUpdate() {
-    
-    if (this.state.currentRow > 5) {
-      // you lost
-      /*
-      this.setState(prevState => ({
-        message:`You lost, the word was ${this.state.wordToGuess}`
-      }))
-      */
-      console.log(`You lost, the word was ${this.state.wordToGuess}`)
-    }
-  }
 
   render() {
     console.log(this.state)
