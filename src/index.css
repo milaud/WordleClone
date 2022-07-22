@@ -46,6 +46,7 @@ html, body {
     margin: 3px;
     min-height: 62px;
     min-width: 62px;
+    color: black;
 }
 
 .row {

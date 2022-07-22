@@ -6,12 +6,12 @@ const BoardContainer = (props) => {
 
     return (
         <div className='board'>
-            <BoardRow state={props} row={0}/>
-            <BoardRow state={props} row={1}/>
-            <BoardRow state={props} row={2}/>
-            <BoardRow state={props} row={3}/>
-            <BoardRow state={props} row={4}/>
-            <BoardRow state={props} row={5}/>
+            <BoardRow currentGuess={props.currentGuess} currentGuesses={props.currentGuesses} currentRow={props.currentRow} wordToGuess={props.wordToGuess} row={0}/>
+            <BoardRow currentGuess={props.currentGuess} currentGuesses={props.currentGuesses} currentRow={props.currentRow} wordToGuess={props.wordToGuess} row={1}/>
+            <BoardRow currentGuess={props.currentGuess} currentGuesses={props.currentGuesses} currentRow={props.currentRow} wordToGuess={props.wordToGuess} row={2}/>
+            <BoardRow currentGuess={props.currentGuess} currentGuesses={props.currentGuesses} currentRow={props.currentRow} wordToGuess={props.wordToGuess} row={3}/>
+            <BoardRow currentGuess={props.currentGuess} currentGuesses={props.currentGuesses} currentRow={props.currentRow} wordToGuess={props.wordToGuess} row={4}/>
+            <BoardRow currentGuess={props.currentGuess} currentGuesses={props.currentGuesses} currentRow={props.currentRow} wordToGuess={props.wordToGuess} row={5}/>
         </div>
     )
 }

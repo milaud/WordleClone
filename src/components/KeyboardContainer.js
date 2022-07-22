@@ -2,17 +2,17 @@ import React from 'react'
 
 
 class KeyboardContainer extends React.Component {
-    constructor(props) {
-        super(props)
+    // constructor(props) {
+    //     super(props)
 
-        /*
-        document.addEventListener("keyup", (event) => {
-          let key = event.key.toUpperCase()
-          console.log(key)
-          this.props.onLetterChange(key)
-        })
-        */
-    }    
+    //     /*
+    //     document.addEventListener("keyup", (event) => {
+    //       let key = event.key.toUpperCase()
+    //       console.log(key)
+    //       this.props.onLetterChange(key)
+    //     })
+    //     */
+    // }    
     
     render() {
       //console.log("currentState: " + this.state.currentGuess)

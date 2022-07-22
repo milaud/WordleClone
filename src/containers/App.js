@@ -6,31 +6,77 @@ import { words } from '../components/Words'
 import React from 'react';
 
 class App extends React.Component {
-  message = ""
-  constructor(props) {
-    super(props)
-    let word = this.selectNewWord()
-    this.state = {
-      currentRow: 0,
-      currentGuess: "",
-      wordToGuess: word,
-      previousGuesses: [],
-      previousWords: []
-    }
-    //console.log(this.wordList)
-  }
-
   alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
   wordList = words.map(word => {
     return word.toUpperCase()
   })
 
-  
+  constructor(props) {
+    super(props)
+    let word = this.getWord()
+
+    this.state = {
+
+      currentGuess: "",
+      currentRow: 0,
+      currentGuesses: [],
+      wordToGuess: word,
+      message: "",
+      roundOver: false,
+      previousGameInfo: [
+        // list that contains all previous words/guesses
+        {
+          word: "", // word to guess
+          currentGuesses: [],
+          successful: false // did user guess word correctly
+        }
+      ]
+    }
+    //console.log(this.wordList)
+  }
+
+  getWord() {
+    var randomIndex = Math.floor(Math.random() * this.wordList.length);
+    var randomWord = this.wordList[randomIndex];
+    return randomWord
+  }
 
   selectNewWord() {
-    let randomIndex = Math.floor(Math.random() * this.wordList.length);
-    let randomWord = this.wordList[randomIndex];
+    const previousWords = this.state.previousGameInfo.map(game => {
+      return game.word
+    })
+    console.log(previousWords)
+
+    var foundUniqueWord = false
+    var randomIndex;
+    var randomWord;
+
+    do {
+      randomIndex = Math.floor(Math.random() * this.wordList.length);
+      randomWord = this.wordList[randomIndex];
+
+      if (!previousWords.includes(randomWord)) {
+        foundUniqueWord = true
+      } else {
+        console.log(`Found duplicate word ${randomWord} in list`)
+      }
+
+    } while(!foundUniqueWord)
+
+    /*
+    while (!foundUniqueWord) {
+      var randomIndex = Math.floor(Math.random() * this.wordList.length);
+      var randomWord = this.wordList[randomIndex];
+
+      if (!previousWords.includes(randomWord)) {
+        foundUniqueWord = true
+      } else {
+        console.log(`Found duplicate word ${randomWord} in list`)
+      }
+    }
+    */
+    
     /*
     ToDo: make sure to not include duplicate words
     if (!this.state.previousWords.includes(randomWord)) {
@@ -40,17 +86,31 @@ class App extends React.Component {
     return randomWord
   }
 
-  isWordFound() {
+  writeToTile(key) {
+    // add it to first available tile
+    if (this.state.currentGuess.toUpperCase().length < 5) {
+      this.setState(prevState => ({
+        currentGuess: prevState.currentGuess + key
+      }))
+    }
+  }
+  
+  isfRowIsFilled() {
+    return this.state.currentGuess.length === 5 ? true : false
+  }
+
+  isValidGuess() {
+    var validWord = this.wordList.includes(this.state.currentGuess.toUpperCase())
+    if (!validWord) {
+      return false
+    }
+    return true
+  }
+
+  doesGuessMatchWord() {
+    // check if guess matches word
     let currentGuess = this.state.currentGuess
     let wordToGuess = this.state.wordToGuess
-
-    // check if valid word
-      if (!this.wordList.includes(currentGuess.toUpperCase())) {
-          this.setState(prevState => ({
-            message: "Not a valid word"
-          }))
-          return false
-      } 
 
     if (currentGuess === wordToGuess) {
       return true
@@ -58,99 +118,77 @@ class App extends React.Component {
     return false
   }
 
-  isValidWord() {
-    if (this.wordList.includes(this.state.currentGuess.toUpperCase())) {
-      return true
+  submitGuess() {
+    if (!this.isfRowIsFilled()) {
+      this.updateMessage("Not enough letters")
+      return
+    } 
+    if (!this.isValidGuess()) {
+      this.updateMessage("Not a valid word")
+      return
     }
-    return false
-  }
-
-  onLetterChange = (event) => {
-    var key = event
-    //console.log(key)
-    const currentGuess = this.state.currentGuess.toUpperCase()
     
-    //console.log(currentGuess == this.state.wordToGuess)
-
-    this.setState(prevState => ({
-      message: ""
-    }))
-
-    if (this.alphabet.indexOf(key) !== -1) {
-      // add it to first available spot in div
-      if (currentGuess.length < 5) {
-
-        this.setState(prevState => ({
-          currentGuess: prevState.currentGuess + key
-        }))
-      }
-
-    } else if (key === "⌫" || key === "BACKSPACE" || key === "DELETE") {
-      // remove from most recent spot in div
-      if (currentGuess.length > 0) {
-        this.setState(prevState => ({
-          currentGuess: prevState.currentGuess.slice(0, prevState.currentGuess.length - 1)
-        }))
-      }
-
-    } else if (key === "⏎" || key === "ENTER") {
-      if (currentGuess.length === 5) {
-
-        // check if valid word
-        var validWord = this.isValidWord()
-        if (!validWord) {
-          this.setState(prevState => ({
-            message: "Not a valid word"
-          }))
-          return
-        }
-
-        // check if word matches
-        var isWordFound = this.isWordFound()
-        if (isWordFound) {
-          this.setState(prevState => ({
-            message: "Congrats!",
-            currentGuess: "",
-            currentRow: prevState.currentRow + 1,
-            previousGuesses: [...this.state.previousGuesses, prevState.currentGuess]
-          }))
-        } else {
-          // if there is not a match, 
-          this.setState(prevState => ({
-            currentGuess: "",
-            currentRow: prevState.currentRow + 1,
-            previousGuesses: [...this.state.previousGuesses, prevState.currentGuess],
-            message: ""
-          }))
-        }
-      } else {
-        this.setState(prevState => ({
-          message: "Not enough letters"
-        }))
-      }
-    }
-
-    if (this.state.currnetRow > 5 || this.state.previousGuesses.length === 6) {
-      this.checkIfGameOver()
-    }
-
-  }
-
-  checkIfGameOver = () => {
-    if (this.state.currentGuess === this.state.wordToGuess) {
-        this.setState(prevState => ({
-          message:`Wow that was close: ${this.state.wordToGuess}`
-        }))
-    } else {
+    if (this.doesGuessMatchWord()) {
       this.setState(prevState => ({
-        message:`You lost, the word was ${this.state.wordToGuess}`
+        message: "Congrats!",
+        currentGuess: "",
+        currentRow: prevState.currentRow + 1,
+        currentGuesses: [...this.state.currentGuesses, prevState.currentGuess],
+        roundOver: true
+      }))
+    } else {
+      // no need to add message, UI will show incorrect word
+      this.setState(prevState => ({
+        currentGuess: "",
+        currentRow: prevState.currentRow + 1,
+        currentGuesses: [...this.state.currentGuesses, prevState.currentGuess],
       }))
     }
+  }
+
+  eraseLatestTile() {
+    // remove from latest written tile
+    if (this.state.currentGuess.toUpperCase().length > 0) {
+      this.setState(prevState => ({
+        currentGuess: prevState.currentGuess.slice(0, prevState.currentGuess.length - 1)
+      }))
+    }
+  }
+
+  onLetterChange = (key) => {
+    //console.log(key)
+
+    this.updateMessage("")
+
+    // key pressed is a letter
+    if (this.alphabet.indexOf(key) !== -1) {
+      this.writeToTile(key)
+    } else if (key === "⌫" || key === "BACKSPACE" || key === "DELETE") {
+      this.eraseLatestTile()
+    } else if (key === "⏎" || key === "ENTER") {
+      this.submitGuess()
+    }
+  }
+
+  stateNewGame() {
+    this.setState(() => ({
+      message: "",
+      currentGuess: "",
+      currentRow: 0,
+      currentGuesses: [],
+      roundOver: false
+    }))
   }
 
   handleKeyBoard = (event) => {
     let key = event.key.toUpperCase()
     this.onLetterChange(key)
+  }
+
+  updateMessage(message) {
+    this.setState({
+      message: message
+    })
   }
 
 
@@ -163,8 +201,14 @@ class App extends React.Component {
           < Message message={this.state.message} />
         </div>
         <div className='game'>
-            <BoardContainer state={this.state}/>
-            <KeyboardContainer state={this.state} onLetterChange={this.onLetterChange}/>
+            {/* <BoardContainer state={this.state}/> */}
+            <BoardContainer 
+              currentGuess={this.state.currentGuess}
+              currentGuesses={this.state.currentGuesses}
+              currentRow={this.state.currentRow}
+              wordToGuess={this.state.wordToGuess}
+            />
+            <KeyboardContainer onLetterChange={this.onLetterChange}/>
         </div>
       </div>
     );
@@ -172,3 +216,12 @@ class App extends React.Component {
 }
 
 export default App;
+
+/*
+<BoardContainer 
+  currentGuess={this.state.currentGuess}
+  currentGuesses={this.state.currentGuesses}
+  currentRow={this.state.currentRow}
+  wordToGuess={this.state.wordToGuess}
+/>
+*/
