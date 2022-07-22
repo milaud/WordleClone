@@ -4,15 +4,17 @@ class BoardRow extends React.Component {
     tiles = []
 
     findAllIndexes(wordToGuess) {
-        var indexMap = {}
+        let indexMap = {}
         // add each letter to a map, with each value being a list containing each index the letter occurs
         for (let index = 0; index < wordToGuess.length; index++) {
             //console.log(`${index}: ${indexMap}`)
             let letter = wordToGuess[index]
             if (indexMap.hasOwnProperty(letter)) {
-                indexMap[letter].push(index)
+                //indexMap[letter].push(index)
+                indexMap[letter] += 1
             } else {
-                indexMap[letter] = [index]
+                //indexMap[letter] = [index]
+                indexMap[letter] = 1
             }
         }
         return indexMap
@@ -20,27 +22,34 @@ class BoardRow extends React.Component {
     
     compareWords(wordToGuess, wordToAnalyze) {
         let indexMap = this.findAllIndexes(wordToGuess)
-        var styles = []
+        //console.log(indexMap)
+        let styles = []
+
+        // initially check indexes if there are any matches
         for (let index = 0; index < wordToAnalyze.length; index++) {
-            let letter = wordToAnalyze[index]
-            if (indexMap.hasOwnProperty(letter)) {
-                // guess letter is in golden word
-                if (indexMap[letter].includes(index)) {
-                    // check which index it matches
-                    for (let j = 0; j < indexMap[letter].length; j++) {
-                        // check if index is correct
-                        let subIndex = indexMap[letter][j]
-                        if (subIndex === index) {
-                            styles.push(1)
-                        }
-                    }
-                } else {
-                    styles.push(0)
-                }
-            } else {
-                styles.push(-1)
+            if (wordToAnalyze[index] === wordToGuess[index]) {
+                styles[index] = 1
+                indexMap[wordToGuess[index]] -= 1
             }
         }
+
+        // go through word again and check the non-matching indexes to see if letter exists in map
+        for (let index = 0; index < wordToAnalyze.length; index++) {
+            if (styles[index] !== undefined) {
+                continue
+            }
+            let letter = wordToAnalyze[index]
+            if (!indexMap.hasOwnProperty(letter) || indexMap[letter] < 1) {
+                // guessed letter is not in map
+                styles[index] = -1
+            } else {
+                // guessed letter is in map
+                styles[index] = 0
+                // update map
+                indexMap[letter] -= 1
+            }
+        }
+
         // should contain an array with the color for each tile at its index
         // -1 == gray, 0 == yellow, 1 == green
         return styles
@@ -66,9 +75,11 @@ class BoardRow extends React.Component {
                 } else if (tileStyleIndex === 0) {
                     // yellow
                     document.getElementById(tile).style = "background-color: yellow"
-                } else {
+                } else if (tileStyleIndex === 1) {
                     // green
                     document.getElementById(tile).style = "background-color: green"
+                } else {
+                    console.log(`Unexpected style at index ${index}: ${tileStyleIndex}`)
                 }
                 
             }
