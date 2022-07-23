@@ -19,38 +19,38 @@ class KeyboardContainer extends React.Component {
       return (
         <div className="keyboard">
           <div>
-            <button className="button-small pure-button"onClick={this.buttonPressed}>Q</button>
-            <button className="button-small pure-button"onClick={this.buttonPressed}>W</button>
-            <button className="button-small pure-button"onClick={this.buttonPressed}>E</button>
-            <button className="button-small pure-button"onClick={this.buttonPressed}>R</button>
-            <button className="button-small pure-button"onClick={this.buttonPressed}>T</button>
-            <button className="button-small pure-button"onClick={this.buttonPressed}>Y</button>
-            <button className="button-small pure-button"onClick={this.buttonPressed}>U</button>
-            <button className="button-small pure-button"onClick={this.buttonPressed}>I</button>
-            <button className="button-small pure-button"onClick={this.buttonPressed}>O</button>
-            <button className="button-small pure-button"onClick={this.buttonPressed}>P</button>
+            <button className="keyboardButton"onClick={this.buttonPressed}>Q</button>
+            <button className="keyboardButton"onClick={this.buttonPressed}>W</button>
+            <button className="keyboardButton"onClick={this.buttonPressed}>E</button>
+            <button className="keyboardButton"onClick={this.buttonPressed}>R</button>
+            <button className="keyboardButton"onClick={this.buttonPressed}>T</button>
+            <button className="keyboardButton"onClick={this.buttonPressed}>Y</button>
+            <button className="keyboardButton"onClick={this.buttonPressed}>U</button>
+            <button className="keyboardButton"onClick={this.buttonPressed}>I</button>
+            <button className="keyboardButton"onClick={this.buttonPressed}>O</button>
+            <button className="keyboardButton"onClick={this.buttonPressed}>P</button>
           </div>
           <div>
-            <button className="button-small pure-button"onClick={this.buttonPressed}>A</button>
-            <button className="button-small pure-button"onClick={this.buttonPressed}>S</button>
-            <button className="button-small pure-button"onClick={this.buttonPressed}>D</button>
-            <button className="button-small pure-button"onClick={this.buttonPressed}>F</button>
-            <button className="button-small pure-button"onClick={this.buttonPressed}>G</button>
-            <button className="button-small pure-button"onClick={this.buttonPressed}>H</button>
-            <button className="button-small pure-button"onClick={this.buttonPressed}>J</button>
-            <button className="button-small pure-button"onClick={this.buttonPressed}>K</button>
-            <button className="button-small pure-button"onClick={this.buttonPressed}>L</button>
+            <button className="keyboardButton"onClick={this.buttonPressed}>A</button>
+            <button className="keyboardButton"onClick={this.buttonPressed}>S</button>
+            <button className="keyboardButton"onClick={this.buttonPressed}>D</button>
+            <button className="keyboardButton"onClick={this.buttonPressed}>F</button>
+            <button className="keyboardButton"onClick={this.buttonPressed}>G</button>
+            <button className="keyboardButton"onClick={this.buttonPressed}>H</button>
+            <button className="keyboardButton"onClick={this.buttonPressed}>J</button>
+            <button className="keyboardButton"onClick={this.buttonPressed}>K</button>
+            <button className="keyboardButton"onClick={this.buttonPressed}>L</button>
           </div>
           <div>
-            <button className="button-small pure-button"onClick={this.buttonPressed}>⏎</button>
-            <button className="button-small pure-button"onClick={this.buttonPressed}>Z</button>
-            <button className="button-small pure-button"onClick={this.buttonPressed}>X</button>
-            <button className="button-small pure-button"onClick={this.buttonPressed}>C</button>
-            <button className="button-small pure-button"onClick={this.buttonPressed}>V</button>
-            <button className="button-small pure-button"onClick={this.buttonPressed}>B</button>
-            <button className="button-small pure-button"onClick={this.buttonPressed}>N</button>
-            <button className="button-small pure-button"onClick={this.buttonPressed}>M</button>
-            <button className="button-small pure-button"onClick={this.buttonPressed}>⌫</button>
+            <button className="keyboardButton"onClick={this.buttonPressed}>⏎</button>
+            <button className="keyboardButton"onClick={this.buttonPressed}>Z</button>
+            <button className="keyboardButton"onClick={this.buttonPressed}>X</button>
+            <button className="keyboardButton"onClick={this.buttonPressed}>C</button>
+            <button className="keyboardButton"onClick={this.buttonPressed}>V</button>
+            <button className="keyboardButton"onClick={this.buttonPressed}>B</button>
+            <button className="keyboardButton"onClick={this.buttonPressed}>N</button>
+            <button className="keyboardButton"onClick={this.buttonPressed}>M</button>
+            <button className="keyboardButton"onClick={this.buttonPressed}>⌫</button>
           </div>
         </div>
       )

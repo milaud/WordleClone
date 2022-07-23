@@ -83,9 +83,15 @@ class BoardRow extends React.Component {
                 }
                 
             }
+        } else if (this.props.currentGuesses.length === 0) {
+            for (let row = 0; row < 6; row++) {
+                for (let index = 0; index < 5; index++) {
+                    const tile = `row${row}tile${index}`
+                    document.getElementById(tile).style = "background-color: none"
+                }
+            }
         }
     }
-
 
     componentDidUpdate() {
         this.updateStyles()

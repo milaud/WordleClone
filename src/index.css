@@ -11,15 +11,30 @@ html, body {
     position: relative;
 }
 
+.gameInfo {
+    /* for debugging
+    border: 2px solid black; */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: end;
+    width: 50%;
+}
+
+.newGameButton {
+    margin-top: 20px;
+}
+
 .messages {
     margin-top: 5px;
     z-index: 1;
-    border: 2em;
+    border: 1rem;
     border-radius: 5px;
     background-color: darkgray;
+    margin-right: 20px;
 }
 
-.messages, .game {
+.gameInfo, .game {
     text-align: center;
     position: absolute;
     top: 0;
@@ -30,26 +45,83 @@ html, body {
     width: 100%;
 }
 
+.keyboard {
+    padding: 1px;
+}
+
 .board {
-    margin-left: 35%;
+    display: inline-block;
 }
 
-.button-small {
-    font-size: 85%;
+.keyboardButton {
+    /* margin: 1vw; */
+    /* font-size: medium; */
+    height: 3em;
+    width: 2em;
+    padding: 1px;
+    margin: 0.15vw;
+    font-weight: bold;
+    cursor: pointer;
 }
 
-.tile {
-    align-items: center;
-    border: thin solid black;
-    display: flex;
-    font-size: 32px;
-    justify-content: center;
-    margin: 3px;
-    min-height: 62px;
-    min-width: 62px;
-    color: black;
-}
+@media screen and (min-width: 300px) {
+    .tile {
+        align-items: center;
+        border: thin solid black;
+        display: flex;
+        font-size: 22px;
+        justify-content: center;
+        margin: 3px;
+        min-height: 42px;
+        min-width: 42px;
+        color: black;
+    }
+
+    .keyboard {
+        display: block;
+        padding: 1px;
+    }
+
+    .gameInfo {
+        width: 75%;
+    }
+
+
+  }
+
+  @media screen and (min-width: 600px) {
+    /* .board {
+        margin-left: 30%;
+    } */
+  }
+
+  @media screen and (min-width: 800px) {
+    .tile {
+        align-items: center;
+        border: thin solid black;
+        display: flex;
+        font-size: 32px;
+        justify-content: center;
+        margin: 3px;
+        min-height: 62px;
+        min-width: 62px;
+        color: black;
+    }
+
+    /* .board {
+        margin-left: 30%;
+    } */
+
+  }
+
+  @media screen and (min-width: 1000px) {
+    .messages {
+        height: 10%;
+        margin-right: 35%;
+    }
+  }
 
 .row {
     display: flex;
 }
+
