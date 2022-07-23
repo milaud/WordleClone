@@ -17,13 +17,12 @@ class App extends React.Component {
     let word = this.getWord()
 
     this.state = {
-
+      roundOver: false,
       currentGuess: "",
       currentRow: 0,
       currentGuesses: [],
       wordToGuess: word,
       message: "",
-      roundOver: false,
       previousGameInfo: [
         // list that contains all previous words/guesses
         {
@@ -33,7 +32,6 @@ class App extends React.Component {
         }
       ]
     }
-    //console.log(this.wordList)
   }
 
   getWord() {
@@ -64,25 +62,6 @@ class App extends React.Component {
 
     } while(!foundUniqueWord)
 
-    /*
-    while (!foundUniqueWord) {
-      var randomIndex = Math.floor(Math.random() * this.wordList.length);
-      var randomWord = this.wordList[randomIndex];
-
-      if (!previousWords.includes(randomWord)) {
-        foundUniqueWord = true
-      } else {
-        console.log(`Found duplicate word ${randomWord} in list`)
-      }
-    }
-    */
-    
-    /*
-    ToDo: make sure to not include duplicate words
-    if (!this.state.previousWords.includes(randomWord)) {
-      return randomWord
-    }
-    */
     return randomWord
   }
 
@@ -118,6 +97,14 @@ class App extends React.Component {
     return false
   }
 
+  writeRow() {
+    this.setState(prevState => ({
+      currentGuess: "",
+      currentRow: prevState.currentRow + 1,
+      currentGuesses: [...this.state.currentGuesses, prevState.currentGuess]
+    }))
+  }
+
   submitGuess() {
     if (!this.isfRowIsFilled()) {
       this.updateMessage("Not enough letters")
@@ -130,20 +117,17 @@ class App extends React.Component {
     
     if (this.doesGuessMatchWord()) {
       this.setState(prevState => ({
-        message: "Congrats!",
-        currentGuess: "",
-        currentRow: prevState.currentRow + 1,
-        currentGuesses: [...this.state.currentGuesses, prevState.currentGuess],
-        roundOver: true
+        roundOver: true,
+        message: "Congrats!"
       }))
-    } else {
-      // no need to add message, UI will show incorrect word
+    } else if (this.state.currentRow === 5 && this.state.currentGuesses[-1] !== this.state.wordToGuess) {
       this.setState(prevState => ({
-        currentGuess: "",
-        currentRow: prevState.currentRow + 1,
-        currentGuesses: [...this.state.currentGuesses, prevState.currentGuess],
+        roundOver: true,
+        message: this.state.wordToGuess
       }))
     }
+
+    this.writeRow()
   }
 
   eraseLatestTile() {
@@ -158,15 +142,17 @@ class App extends React.Component {
   onLetterChange = (key) => {
     //console.log(key)
 
-    this.updateMessage("")
+    if (!this.state.roundOver && this.state.currentRow < 6) {
+      this.updateMessage("")
 
-    // key pressed is a letter
-    if (this.alphabet.indexOf(key) !== -1) {
-      this.writeToTile(key)
-    } else if (key === "⌫" || key === "BACKSPACE" || key === "DELETE") {
-      this.eraseLatestTile()
-    } else if (key === "⏎" || key === "ENTER") {
-      this.submitGuess()
+      // key pressed is a letter
+      if (this.alphabet.indexOf(key) !== -1) {
+        this.writeToTile(key)
+      } else if (key === "⌫" || key === "BACKSPACE" || key === "DELETE") {
+        this.eraseLatestTile()
+      } else if (key === "⏎" || key === "ENTER") {
+        this.submitGuess()
+      }
     }
   }
 
@@ -175,8 +161,7 @@ class App extends React.Component {
       message: "",
       currentGuess: "",
       currentRow: 0,
-      currentGuesses: [],
-      roundOver: false
+      currentGuesses: []
     }))
   }
 
@@ -186,21 +171,21 @@ class App extends React.Component {
   }
 
   updateMessage(message) {
-    this.setState({
+    this.setState(() => ({
       message: message
-    })
+    }))
   }
 
 
   render() {
-    console.log(this.state)
+    //console.log(this.state)
     return (
-      <div className="App" tabIndex={0} onKeyDown={this.handleKeyBoard} >
+      <div className="App" >
         <div className='messages'>
           {/* <h1>{this.state.wordToGuess}</h1> */}
           < Message message={this.state.message} />
         </div>
-        <div className='game'>
+        <div className='game' tabIndex={1} onKeyDown={this.handleKeyBoard}>
             {/* <BoardContainer state={this.state}/> */}
             <BoardContainer 
               currentGuess={this.state.currentGuess}
@@ -216,12 +201,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-/*
-<BoardContainer 
-  currentGuess={this.state.currentGuess}
-  currentGuesses={this.state.currentGuesses}
-  currentRow={this.state.currentRow}
-  wordToGuess={this.state.wordToGuess}
-/>
-*/
