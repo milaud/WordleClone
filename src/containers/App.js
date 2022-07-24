@@ -1,4 +1,3 @@
-import './App.css';
 import BoardContainer from '../components/BoardContainer';
 import KeyboardContainer from '../components/KeyboardContainer';
 import Message from '../components/Message'
@@ -7,6 +6,7 @@ import React from 'react';
 
 class App extends React.Component {
   alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  stockMessage = "Welcome to (not) Wordle"
 
   wordList = words.map(word => {
     return word.toUpperCase()
@@ -23,7 +23,7 @@ class App extends React.Component {
       currentRow: 0,
       currentGuesses: [],
       wordToGuess: word,
-      message: "",
+      message: this.stockMessage,
       previousGameInfo: []
     }
     /*
@@ -151,7 +151,7 @@ class App extends React.Component {
     //console.log(key)
 
     if (!this.state.roundOver && this.state.currentRow < 6) {
-      this.updateMessage("")
+      this.updateMessage(this.stockMessage)
 
       // key pressed is a letter
       if (this.alphabet.indexOf(key) !== -1) {
@@ -166,7 +166,6 @@ class App extends React.Component {
 
   startNewGame() {
     let newWord = this.selectNewWord()
-    //let newWord = this.getWord()
     let previousGameInfo = {
       word: this.state.wordToGuess, 
       currentGuesses: this.state.currentGuesses,
@@ -177,7 +176,7 @@ class App extends React.Component {
       roundOver: false,
       roundWon: false,
       wordToGuess: newWord,
-      message: "",
+      message: this.stockMessage,
       currentGuess: "",
       currentRow: 0,
       currentGuesses: [],
@@ -203,7 +202,6 @@ class App extends React.Component {
       <div className="App" >
         <div className="gameInfo">
           <div className='messages'>
-            {/* <h1>{this.state.wordToGuess}</h1> */}
             < Message message={this.state.message} />
           </div>
           <div className="newGameButton">
@@ -218,7 +216,10 @@ class App extends React.Component {
               currentRow={this.state.currentRow}
               wordToGuess={this.state.wordToGuess}
             />
-            <KeyboardContainer onLetterChange={this.onLetterChange}/>
+            <KeyboardContainer 
+              currentGuess={this.state.currentGuess} 
+              onLetterChange={this.onLetterChange}
+            />
         </div>
       </div>
     );
