@@ -66,13 +66,14 @@ html, body {
 } */
 .keyboardButton {
     font-weight: bold;
+    color: black;
     cursor: pointer;
     border: 1rem;
     border-radius: 5px;
     margin: 0.15vw;
     width: 2em;
     height: 2em;
-    /* padding: 1px; */
+    padding: 0px;
 }
 
 .board, .keyboard {
