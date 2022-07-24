@@ -29,14 +29,14 @@ html, body {
     /* centers game*/ 
     text-align: center; 
 }
-.board-container {
-    /* for debugging */
-    /* border: 2px solid red; */
+/* .board-container {
+    for debugging
+    border: 2px solid red;
 }
 .board {
-    /* for debugging */
-    /* border: 2px dashed red; */
-}
+    for debugging
+    border: 2px dashed red;
+} */
 /* board row and tiles */
 .row {
     display: flex;
@@ -60,9 +60,10 @@ html, body {
     height: 100%;
     /* padding-top: 50%; */
 }
-.keyboard {
-    /* border: 2px dashed black; */
-}
+/* .keyboard {
+    for debugging
+    border: 2px dashed black;
+} */
 .keyboardButton {
     font-weight: bold;
     cursor: pointer;
