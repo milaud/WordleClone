@@ -84,7 +84,10 @@ html, body {
 
 /* phones */
 @media screen and (max-width: 385px) {
-
+    .messages {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
     .keyboard {
         width: 100%;
     }
@@ -100,6 +103,10 @@ html, body {
     }
 }
 @media screen and (min-width: 386px) {
+    .messages {
+       padding-left: 1px;
+       padding-right: 1px;
+    }
     .keyboard {
         width: 100%;
     }
