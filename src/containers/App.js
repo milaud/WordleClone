@@ -2,6 +2,7 @@ import BoardContainer from '../components/BoardContainer';
 import KeyboardContainer from '../components/KeyboardContainer';
 import Message from '../components/Message'
 import { words } from '../components/Words'
+import { commonWords } from '../components/CommonWords'
 import React from 'react';
 
 class App extends React.Component {
@@ -9,6 +10,10 @@ class App extends React.Component {
   stockMessage = "Welcome to (not) Wordle"
 
   wordList = words.map(word => {
+    return word.toUpperCase()
+  })
+
+  commonWordList = commonWords.map(word => {
     return word.toUpperCase()
   })
 
@@ -37,8 +42,15 @@ class App extends React.Component {
   }
 
   getWord() {
-    var randomIndex = Math.floor(Math.random() * this.wordList.length);
-    var randomWord = this.wordList[randomIndex];
+    var foundWord = false;
+    var randomWord;
+    while (!foundWord) {
+      var randomIndex = Math.floor(Math.random() * this.commonWordList.length);
+      randomWord = this.commonWordList[randomIndex];
+      if (this.wordList.includes(randomWord)) {
+        foundWord = true
+      }
+    }
     return randomWord
   }
 
@@ -54,19 +66,19 @@ class App extends React.Component {
       //console.log(previousWords)
   
       do {
-        randomIndex = Math.floor(Math.random() * this.wordList.length);
-        randomWord = this.wordList[randomIndex];
+        randomIndex = Math.floor(Math.random() * this.commonWordList.length);
+        randomWord = this.commonWordList[randomIndex];
   
-        if (!previousWords.includes(randomWord)) {
+        if (this.wordList.includes(randomWord) && !previousWords.includes(randomWord)) {
           foundUniqueWord = true
         } else {
-          console.log(`Found duplicate word ${randomWord} in list`)
+          //console.log(`Found duplicate word ${randomWord} in list`)
         }
   
       } while(!foundUniqueWord)
     } else {
-      randomIndex = Math.floor(Math.random() * this.wordList.length);
-      randomWord = this.wordList[randomIndex];
+      randomIndex = Math.floor(Math.random() * this.commonWordList.length);
+      randomWord = this.commonWordList[randomIndex];
     }
 
     return randomWord

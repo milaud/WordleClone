@@ -81,8 +81,8 @@ class BoardRow extends React.Component {
                 } else {
                     console.log(`Unexpected style at index ${index}: ${tileStyleIndex}`)
                 }
-                
             }
+            this.updateKeyboard(stylesToSet)
         } else if (this.props.currentGuesses.length === 0) {
             for (let row = 0; row < 6; row++) {
                 for (let index = 0; index < 5; index++) {
@@ -90,6 +90,7 @@ class BoardRow extends React.Component {
                     document.getElementById(tile).style = "background-color: none"
                 }
             }
+            this.updateKeyboard()
         }
     }
 
@@ -109,6 +110,45 @@ class BoardRow extends React.Component {
                 return this.props.currentGuesses[this.props.row][index]
             } else {
                 return ''
+            }
+        }
+    }
+
+    // this shouldn't be in this component, will extract these to come from parent and pass the styles
+    // down to both the boardRow and keyboard components
+    updateKeyboard(stylesToSet) {
+        let currentRow =  this.props.currentRow
+        if (currentRow > 0) {
+            let wordToAnalyze = this.props.currentGuesses[currentRow - 1]
+            for (let index = 0; index < stylesToSet.length; index++) {
+                const tileStyleIndex = stylesToSet[index];
+                const keyboardKey = wordToAnalyze[index]
+                //console.log("Letter to change: ", keyboardKey)
+                //console.log(document.getElementById(keyboardKey).style)
+                    if (tileStyleIndex === -1) {
+                        // grey
+                        if (!(document.getElementById(keyboardKey).style.backgroundColor === "green" || 
+                        document.getElementById(keyboardKey).style.backgroundColor === "yellow")) {
+                            document.getElementById(keyboardKey).style = "background-color: grey"
+                        }
+                    } else if (tileStyleIndex === 0) {
+                        // yellow
+                        if (document.getElementById(keyboardKey).style.backgroundColor === "" ||
+                        !document.getElementById(keyboardKey).style.backgroundColor === "green") {
+                            document.getElementById(keyboardKey).style = "background-color: yellow"
+                        }
+                    } else if (tileStyleIndex === 1) {
+                        // green
+                        document.getElementById(keyboardKey).style = "background-color: green"
+                    } else {
+                        console.log(`Unexpected style at index ${index}: ${tileStyleIndex}`)
+                    }
+            }
+        } else if (this.props.currentGuesses.length === 0) {
+            const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            for (let index = 0; index < alphabet.length; index++) {
+                const letter = alphabet[index]
+                document.getElementById(letter).style = "background-color: none"
             }
         }
     }
