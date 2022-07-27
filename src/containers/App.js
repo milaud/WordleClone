@@ -212,11 +212,10 @@ class App extends React.Component {
     return (
       <div className="App" >
         <div className="navbar">
-          <button className='menuIcon'>
-            <div></div>
-            <div></div>
-            <div></div>
-          </button>
+        <label class="switch">
+          <input type="checkbox"></input>
+          <span class="slider round"></span>
+        </label>
           <a href=''>(Not) Wordle</a>
           <button className="newGameButton" onClick={this.startNewGame.bind(this)}>New Word</button>
         </div>
