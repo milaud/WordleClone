@@ -7,7 +7,6 @@ import React from 'react';
 
 class App extends React.Component {
   alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  stockMessage = "Welcome to (not) Wordle"
 
   wordList = words.map(word => {
     return word.toUpperCase()
@@ -28,7 +27,7 @@ class App extends React.Component {
       currentRow: 0,
       currentGuesses: [],
       wordToGuess: word,
-      message: this.stockMessage,
+      message: "",
       previousGameInfo: []
     }
     /*
@@ -163,7 +162,7 @@ class App extends React.Component {
     //console.log(key)
 
     if (!this.state.roundOver && this.state.currentRow < 6) {
-      this.updateMessage(this.stockMessage)
+      this.updateMessage("")
 
       // key pressed is a letter
       if (this.alphabet.indexOf(key) !== -1) {
@@ -188,7 +187,7 @@ class App extends React.Component {
       roundOver: false,
       roundWon: false,
       wordToGuess: newWord,
-      message: this.stockMessage,
+      message: "",
       currentGuess: "",
       currentRow: 0,
       currentGuesses: [],
