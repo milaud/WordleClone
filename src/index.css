@@ -7,27 +7,60 @@ html, body {
 }
 
 /* top 1/3rd */
-.gameInfo {
+.navbar {
     /* for debugging */
     /* border: 2px solid black; */
-    display: grid;
-    grid-template-columns: 2fr 1fr;
+    padding: 3px;
+    background-color: #333;
+    overflow: hidden;
+
+    /* Solution 1 */
+    /* display: flex;
+    flex-wrap: nowrap;
+    justify-content: center; */
+
+    /* grid attempt */
+    /* display: grid; */
+    /* grid-template-columns: 1fr repeat(3, auto) 1fr; */
+    /* grid-column-gap: 5px; */
+    /* justify-items: center; */
+}
+.navbar a {
+    color: #f2f2f2;
+    text-decoration: none;
+
+    /* Solution 1 */
+    /* flex:1;
+    display: flex;
+    justify-content: center; */
+    /* margin-left: 10% */
+}
+.newGameButton {
+    /* Solution 1 */
+    /* margin-right: 10%; */
+
+    /* grid attempt */
+    /* margin-left: auto;  */
+    
 }
 .messages {
     border: 1rem;
     border-radius: 5px;
-    background-color: darkgray;
-    justify-self: end;
+    background-color: rgba(160,160,160, .85);
+    z-index: 1;
+    display: inline-grid;
+    position: absolute;
+    max-width: fit-content;
     padding-left: 5px;
     padding-right: 5px;
+    left: 0; 
+    right: 0; 
+    margin-top: 3px; 
+    margin-left: auto; 
+    margin-right: auto;
 }
-.newGameButton {
-    /* margin-top: 20px; */
-    align-self: center;
-}
-
 /* bottom 2/3rds */
-.gameInfo, .game {
+.game {
     /* centers game*/ 
     text-align: center; 
 }
@@ -84,10 +117,6 @@ html, body {
 
 /* phones */
 @media screen and (max-width: 385px) {
-    .messages {
-        padding-left: 0px;
-        padding-right: 0px;
-    }
     .keyboard {
         width: 100%;
     }
@@ -103,10 +132,6 @@ html, body {
     }
 }
 @media screen and (min-width: 386px) {
-    .messages {
-       padding-left: 1px;
-       padding-right: 1px;
-    }
     .keyboard {
         width: 100%;
     }
@@ -122,9 +147,6 @@ html, body {
 
 /* tablets */
 @media screen and (min-width: 650px) {
-    .messages {
-        margin-right: 13%;
-    }
     .keyboardButton {
         font-size: xx-large;
         width: 2em;

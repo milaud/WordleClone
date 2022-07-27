@@ -212,16 +212,13 @@ class App extends React.Component {
     //console.log(this.state)
     return (
       <div className="App" >
-        <div className="gameInfo">
-          <div className='messages'>
-            < Message message={this.state.message} />
-          </div>
-          <div className="newGameButton">
-              <button onClick={this.startNewGame.bind(this)}>New Word</button>
-          </div>
+        <div className="navbar">
+          <a href=''>(Not) Wordle</a>
+          <button className="newGameButton" onClick={this.startNewGame.bind(this)}>New Word</button>
         </div>
         <div className='game' tabIndex={1} onKeyDown={this.handleKeyBoard}>
             {/* <BoardContainer state={this.state}/> */}
+            < Message message={this.state.message} />
             <BoardContainer 
               currentGuess={this.state.currentGuess}
               currentGuesses={this.state.currentGuesses}
