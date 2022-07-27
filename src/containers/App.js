@@ -213,6 +213,11 @@ class App extends React.Component {
     return (
       <div className="App" >
         <div className="navbar">
+          <button className='menuIcon'>
+            <div></div>
+            <div></div>
+            <div></div>
+          </button>
           <a href=''>(Not) Wordle</a>
           <button className="newGameButton" onClick={this.startNewGame.bind(this)}>New Word</button>
         </div>
