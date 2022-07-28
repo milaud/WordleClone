@@ -123,7 +123,6 @@ input:checked + .slider:before {
 .game {
     /* centers game*/ 
     text-align: center;
-    padding-top: 5%; 
 }
 /* .board-container {
     for debugging
@@ -154,7 +153,6 @@ input:checked + .slider:before {
     /* for debugging */
     /* border: 2px solid black; */
     height: 100%;
-    padding-top: 2%;
 }
 /* .keyboard {
     for debugging
@@ -228,7 +226,13 @@ input:checked + .slider:before {
         margin-right: 15%;
     }
 }
-@media screen and (min-width: 386px) {
+@media screen and (min-width: 386px) and (max-width: 649px) {
+    .game {
+        padding-top: 2%; 
+    }
+    .keyboard-container {
+        padding-top: 2%;
+    }
     .keyboard {
         width: 100%;
     }
