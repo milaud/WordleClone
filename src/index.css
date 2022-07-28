@@ -200,6 +200,12 @@ input:checked + .slider:before {
     }
 }
 @media screen and (min-width: 350px) and (max-width: 385px) {
+    .game {
+        padding-top: 2%;
+    }
+    .keyboard-container {
+        padding-top: 2%;
+    }
     .keyboard {
         width: 100%;
     }
