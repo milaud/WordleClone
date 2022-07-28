@@ -122,7 +122,8 @@ input:checked + .slider:before {
 /* bottom 2/3rds */
 .game {
     /* centers game*/ 
-    text-align: center; 
+    text-align: center;
+    padding-top: 5%; 
 }
 /* .board-container {
     for debugging
@@ -153,7 +154,7 @@ input:checked + .slider:before {
     /* for debugging */
     /* border: 2px solid black; */
     height: 100%;
-    /* padding-top: 50%; */
+    padding-top: 2%;
 }
 /* .keyboard {
     for debugging
