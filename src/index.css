@@ -10,7 +10,7 @@ html, body {
 .navbar {
     /* for debugging */
     /* border: 2px solid black; */
-    padding: 3px;
+    padding: 0.75em;
     background-color: #333;
     overflow: hidden;
     min-width: 100%;
@@ -34,9 +34,11 @@ html, body {
 */
 .navbar a {
     color: #f2f2f2;
+    font-size: large;
     text-decoration: none;
-    justify-content: left;
-    align-self: center;
+    /* justify-self: start; */
+    /* justify-content: center; */
+    /* align-self: center; */
 }
 
 /* The switch - the box around the slider */
@@ -45,6 +47,7 @@ html, body {
     display: inline-block;
     width: 2.9em;
     height: 1.3em;
+    justify-self: start;
 }
 /* Hide default HTML checkbox */
 .switch input {
@@ -92,10 +95,9 @@ input:checked + .slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
-
 .newGameButton {
     justify-self: end;
-    margin-right: 10%;
+    /* margin-right: 10%; */
     font-weight: bold;
     color: black;
     cursor: pointer;
@@ -141,8 +143,8 @@ input:checked + .slider:before {
     justify-content: center;
     color: black;
     /* ****To do later: these 4 should be adjustable depending on size *****/
-    font-size: 32px;
     margin: 3px;
+    font-size: 32px;
     min-height: 62px;
     min-width: 62px;
 }
@@ -180,13 +182,25 @@ input:checked + .slider:before {
     }
     .keyboardButton {
         font-size: medium;
-        height: 3em;
+        height: 4em;
         width: 2em;
     }
     .specialKey {
         font-size: small;
         height: 4.3em;
         width: 4em;
+    }
+    .tile {
+        margin: 3px;
+        font-size: 32px;
+        min-height: 1.5em;
+        min-width: 1.5em;
+    }
+    .navbar a {
+        justify-self: start;
+    }
+    .newGameButton {
+        margin-right: 15%;
     }
 }
 @media screen and (min-width: 386px) {
@@ -201,17 +215,35 @@ input:checked + .slider:before {
         height: 4.5em;
         width: 3.4em;
     }
+    .tile {
+        margin: 3px;
+        font-size: 32px;
+        min-height: 1.7em;
+        min-width: 1.7em;
+    }
+    .newGameButton {
+        margin-right: 20%;
+    }
 }
 
 /* tablets */
 @media screen and (min-width: 650px) {
     .keyboardButton {
-        font-size: xx-large;
-        width: 2em;
-        height: 4em;
+        font-size: large;
+        width: 2.5em;
+        height: 3.5em;
     }
     .specialKey {
         width: 4.5em;
+    }
+    .tile {
+        margin: 3px;
+        font-size: 32px;
+        min-height: 2em;
+        min-width: 2em;
+    }
+    .newGameButton {
+        margin-right: 20%;
     }
 }
 
@@ -225,5 +257,4 @@ input:checked + .slider:before {
     .specialKey {
         width: 5.5em;
     }
-
 }
