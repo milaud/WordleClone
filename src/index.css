@@ -215,9 +215,9 @@ input:checked + .slider:before {
         width: 2em;
     }
     .specialKey {
-        font-size: small;
-        height: 4.3em;
-        width: 4em;
+        font-size: medium;
+        height: 4em;
+        width: 3.5em;
     }
     .tile {
         margin: 3px;
@@ -247,7 +247,7 @@ input:checked + .slider:before {
         height: 4em;
     }
     .specialKey {
-        height: 4.5em;
+        height: 4em;
         width: 3.4em;
     }
     .tile {
