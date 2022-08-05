@@ -19,7 +19,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     let word = this.getWord()
-
+    console.log(word)
     this.state = {
       roundOver: false,
       roundWon: false,
@@ -28,7 +28,8 @@ class App extends React.Component {
       currentGuesses: [],
       wordToGuess: word,
       message: "",
-      previousGameInfo: []
+      previousGameInfo: [],
+      showDefinition: false,
     }
     /*
     // previousGameInfo holds list that contains all previous words/guesses
@@ -137,12 +138,14 @@ class App extends React.Component {
       this.setState(prevState => ({
         roundOver: true,
         roundWon: true,
-        message: "Congrats!"
+        message: "Congrats!",
+        showDefinition: true
       }))
     } else if (this.state.currentRow === 5 && this.state.currentGuesses[-1] !== this.state.wordToGuess) {
       this.setState(prevState => ({
         roundOver: true,
-        message: this.state.wordToGuess
+        message: this.state.wordToGuess,
+        showDefinition: true
       }))
     }
 
@@ -191,7 +194,8 @@ class App extends React.Component {
       currentGuess: "",
       currentRow: 0,
       currentGuesses: [],
-      previousGameInfo: [...this.state.previousGameInfo, previousGameInfo]
+      previousGameInfo: [...this.state.previousGameInfo, previousGameInfo],
+      showDefinition: false,
     }))
   }
 
@@ -206,22 +210,21 @@ class App extends React.Component {
     }))
   }
 
-
   render() {
     //console.log(this.state)
     return (
       <div className="App" >
         <div className="navbar">
-        <label class="switch">
+        <label className="switch">
           <input type="checkbox"></input>
-          <span class="slider round"></span>
+          <span className="slider round"></span>
         </label>
           <a href=''>(Not) Wordle</a>
           <button className="newGameButton" onClick={this.startNewGame.bind(this)}>New Word</button>
         </div>
         <div className='game' tabIndex={1} onKeyDown={this.handleKeyBoard}>
             {/* <BoardContainer state={this.state}/> */}
-            < Message message={this.state.message} />
+            < Message message={this.state.message} word={this.state.wordToGuess} showDefinition={this.state.showDefinition} />
             <BoardContainer 
               currentGuess={this.state.currentGuess}
               currentGuesses={this.state.currentGuesses}
