@@ -140,10 +140,10 @@ class App extends React.Component {
           <button className="newGameButton" onClick={this.startNewGame.bind(this)}>New Word</button>
         </div>
         <GameBoard 
-          wordToGuess={this.word}
-          roundOver={this.roundOver}
-          roundWon={this.roundWon}
-          currentGuesses={this.currentGuesses}
+          wordToGuess={this.state.wordToGuess}
+          roundOver={this.state.roundOver}
+          roundWon={this.state.roundWon}
+          currentGuesses={this.state.currentGuesses}
           isValidGuess={this.isValidGuess}
         />
       </div>
