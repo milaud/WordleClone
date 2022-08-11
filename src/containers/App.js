@@ -180,13 +180,14 @@ class App extends React.Component {
 
   startNewGame() {
     let newWord = this.selectNewWord()
+    console.log(newWord)
     let previousGameInfo = {
       word: this.state.wordToGuess, 
       currentGuesses: this.state.currentGuesses,
       roundWon: this.state.roundWon
    }
 
-    this.setState(() => ({
+    this.setState({
       roundOver: false,
       roundWon: false,
       wordToGuess: newWord,
@@ -196,7 +197,7 @@ class App extends React.Component {
       currentGuesses: [],
       previousGameInfo: [...this.state.previousGameInfo, previousGameInfo],
       showDefinition: false,
-    }))
+    })
   }
 
   handleKeyBoard = (event) => {
@@ -223,8 +224,11 @@ class App extends React.Component {
           <button className="newGameButton" onClick={this.startNewGame.bind(this)}>New Word</button>
         </div>
         <div className='game' tabIndex={1} onKeyDown={this.handleKeyBoard}>
-            {/* <BoardContainer state={this.state}/> */}
-            < Message message={this.state.message} word={this.state.wordToGuess} showDefinition={this.state.showDefinition} />
+            <Message 
+              message={this.state.message}
+              word={this.state.wordToGuess}
+              showDefinition={this.state.showDefinition} 
+            />
             <BoardContainer 
               currentGuess={this.state.currentGuess}
               currentGuesses={this.state.currentGuesses}
