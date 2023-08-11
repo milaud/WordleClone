@@ -41,6 +41,41 @@ class App extends React.Component {
     */
   }
 
+  componentDidMount() {
+    // fetch API
+    this.getDefinition(this.state.wordToGuess)
+    .then(data => {
+        // console.log(data)
+        return this.parseResponse(data)
+    })
+    .then(parsedData => {
+        console.log("did mount: setting dictionary api response to state")
+        this.setState({
+            wordAPIResponse: parsedData
+        })
+    }).catch(error => console.log(error))
+  }
+
+  parseResponse(response) {
+    // checked if empty response when fetching api
+    // console.log("response", response)
+
+    const word = response[0].word
+    const meanings = response[0].meanings
+    const wiki_url = response[0].sourceUrls.length > 0 ? response[0].sourceUrls[0] : ''
+    const definition_url = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
+    return {word: word, meanings: meanings, wiki_url: wiki_url, definition_url: definition_url}
+}
+
+getDefinition(word) {
+    const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
+    // const url = `https://api.dictionaryapi.dev/api/v2/entries/en/spain`
+    return fetch(url)
+        .then((response) => response.json())
+        .then((data) => data)
+        .catch((error) => console.log(error))
+  }
+  
   getWord() {
     var foundWord = false;
     var randomWord;
@@ -180,12 +215,25 @@ class App extends React.Component {
 
   startNewGame() {
     let newWord = this.selectNewWord()
-    console.log(newWord)
+    console.log("starting new game: ", newWord)
     let previousGameInfo = {
       word: this.state.wordToGuess, 
       currentGuesses: this.state.currentGuesses,
       roundWon: this.state.roundWon
    }
+
+   // fetch API *** TODO: move this to a function?
+   this.getDefinition(newWord)
+   .then(data => {
+       // console.log(data)
+       return this.parseResponse(data)
+   })
+   .then(parsedData => {
+       console.log("setting dictionary api response to state")
+       this.setState({
+           wordAPIResponse: parsedData
+       })
+   }).catch(error => console.log(error))
 
     this.setState({
       roundOver: false,
@@ -198,6 +246,7 @@ class App extends React.Component {
       previousGameInfo: [...this.state.previousGameInfo, previousGameInfo],
       showDefinition: false,
     })
+
   }
 
   handleKeyBoard = (event) => {
@@ -227,7 +276,8 @@ class App extends React.Component {
             <Message 
               message={this.state.message}
               word={this.state.wordToGuess}
-              showDefinition={this.state.showDefinition} 
+              showDefinition={this.state.showDefinition}
+              wordAPIResponse={this.state.wordAPIResponse}
             />
             <BoardContainer 
               currentGuess={this.state.currentGuess}
