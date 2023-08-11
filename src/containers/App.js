@@ -19,7 +19,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     let word = this.getWord()
-
+    console.log(word)
     this.state = {
       roundOver: false,
       roundWon: false,
@@ -28,7 +28,8 @@ class App extends React.Component {
       currentGuesses: [],
       wordToGuess: word,
       message: "",
-      previousGameInfo: []
+      previousGameInfo: [],
+      showDefinition: false,
     }
     /*
     // previousGameInfo holds list that contains all previous words/guesses
@@ -40,6 +41,41 @@ class App extends React.Component {
     */
   }
 
+  componentDidMount() {
+    // fetch API
+    this.getDefinition(this.state.wordToGuess)
+    .then(data => {
+        // console.log(data)
+        return this.parseResponse(data)
+    })
+    .then(parsedData => {
+        console.log("did mount: setting dictionary api response to state")
+        this.setState({
+            wordAPIResponse: parsedData
+        })
+    }).catch(error => console.log(error))
+  }
+
+  parseResponse(response) {
+    // checked if empty response when fetching api
+    // console.log("response", response)
+
+    const word = response[0].word
+    const meanings = response[0].meanings
+    const wiki_url = response[0].sourceUrls.length > 0 ? response[0].sourceUrls[0] : ''
+    const definition_url = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
+    return {word: word, meanings: meanings, wiki_url: wiki_url, definition_url: definition_url}
+}
+
+getDefinition(word) {
+    const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
+    // const url = `https://api.dictionaryapi.dev/api/v2/entries/en/spain`
+    return fetch(url)
+        .then((response) => response.json())
+        .then((data) => data)
+        .catch((error) => console.log(error))
+  }
+  
   getWord() {
     var foundWord = false;
     var randomWord;
@@ -137,12 +173,14 @@ class App extends React.Component {
       this.setState(prevState => ({
         roundOver: true,
         roundWon: true,
-        message: "Congrats!"
+        message: "Congrats!",
+        showDefinition: true
       }))
     } else if (this.state.currentRow === 5 && this.state.currentGuesses[-1] !== this.state.wordToGuess) {
       this.setState(prevState => ({
         roundOver: true,
-        message: this.state.wordToGuess
+        message: this.state.wordToGuess,
+        showDefinition: true
       }))
     }
 
@@ -177,13 +215,27 @@ class App extends React.Component {
 
   startNewGame() {
     let newWord = this.selectNewWord()
+    console.log("starting new game: ", newWord)
     let previousGameInfo = {
       word: this.state.wordToGuess, 
       currentGuesses: this.state.currentGuesses,
       roundWon: this.state.roundWon
    }
 
-    this.setState(() => ({
+   // fetch API *** TODO: move this to a function?
+   this.getDefinition(newWord)
+   .then(data => {
+       // console.log(data)
+       return this.parseResponse(data)
+   })
+   .then(parsedData => {
+       console.log("setting dictionary api response to state")
+       this.setState({
+           wordAPIResponse: parsedData
+       })
+   }).catch(error => console.log(error))
+
+    this.setState({
       roundOver: false,
       roundWon: false,
       wordToGuess: newWord,
@@ -191,8 +243,10 @@ class App extends React.Component {
       currentGuess: "",
       currentRow: 0,
       currentGuesses: [],
-      previousGameInfo: [...this.state.previousGameInfo, previousGameInfo]
-    }))
+      previousGameInfo: [...this.state.previousGameInfo, previousGameInfo],
+      showDefinition: false,
+    })
+
   }
 
   handleKeyBoard = (event) => {
@@ -206,22 +260,25 @@ class App extends React.Component {
     }))
   }
 
-
   render() {
     //console.log(this.state)
     return (
       <div className="App" >
         <div className="navbar">
-        <label class="switch">
+        <label className="switch">
           <input type="checkbox"></input>
-          <span class="slider round"></span>
+          <span className="slider round"></span>
         </label>
           <a href=''>(Not) Wordle</a>
           <button className="newGameButton" onClick={this.startNewGame.bind(this)}>New Word</button>
         </div>
         <div className='game' tabIndex={1} onKeyDown={this.handleKeyBoard}>
-            {/* <BoardContainer state={this.state}/> */}
-            < Message message={this.state.message} />
+            <Message 
+              message={this.state.message}
+              word={this.state.wordToGuess}
+              showDefinition={this.state.showDefinition}
+              wordAPIResponse={this.state.wordAPIResponse}
+            />
             <BoardContainer 
               currentGuess={this.state.currentGuess}
               currentGuesses={this.state.currentGuesses}
