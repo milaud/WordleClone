@@ -1,0 +1,115 @@
+.keyboard-container {
+    /* for debugging */
+    /* border: 2px solid black; */
+    height: 100%;
+}
+
+/* .keyboard {
+    for debugging
+    border: 2px dashed black;
+} */
+.keyboardButton {
+    font-weight: bold;
+    color: black;
+    cursor: pointer;
+    border: 1rem;
+    border-radius: 5px;
+    margin: 0.15vw;
+    width: 2em;
+    height: 2em;
+    padding: 0px;
+}
+
+/* phones */
+@media screen and (max-width: 349px) {
+    .keyboard {
+        width: 100%;
+    }
+
+    .keyboardButton {
+        font-size: small;
+        height: 4em;
+        width: 2em;
+    }
+
+    .specialKey {
+        font-size: small;
+        height: 4.3em;
+        width: 3em;
+    }
+}
+
+@media screen and (min-width: 350px) and (max-width: 385px) {
+    .keyboard-container {
+        padding-top: 2%;
+    }
+
+    .keyboard {
+        width: 100%;
+    }
+
+    .keyboardButton {
+        font-size: medium;
+        height: 4em;
+        width: 2em;
+    }
+
+    .specialKey {
+        font-size: medium;
+        height: 4em;
+        width: 3.5em;
+    }
+}
+
+@media screen and (min-width: 386px) and (max-width: 649px) {
+    .keyboard-container {
+        padding-top: 2%;
+    }
+
+    .keyboard {
+        width: 100%;
+    }
+
+    .keyboardButton {
+        font-size: large;
+        height: 4em;
+    }
+
+    .specialKey {
+        height: 4em;
+        width: 3.4em;
+    }
+
+}
+
+/* tablets */
+@media screen and (min-width: 650px) {
+    .keyboardButton {
+        font-size: large;
+        width: 2.5em;
+        height: 3.5em;
+    }
+
+    .specialKey {
+        width: 4.5em;
+    }
+
+}
+
+/* desktops  */
+@media screen and (min-width: 851px) {
+    .keyboardButton {
+        font-size: medium;
+        margin: 0.25vw;
+        width: 4em;
+    }
+
+    .specialKey {
+        width: 5.5em;
+    }
+}
+
+.keyboardButton {
+    background-color: #818384;
+    color: white;
+}
