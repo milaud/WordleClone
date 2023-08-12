@@ -19,7 +19,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     let word = this.getWord()
-    console.log(word)
+    //console.log(word)
     this.state = {
       roundOver: false,
       roundWon: false,
@@ -224,7 +224,7 @@ class App extends React.Component {
       currentGuesses: this.state.currentGuesses,
       roundWon: this.state.roundWon
     }
-    console.log(newWord)
+    //console.log(newWord)
 
     this.fetchAPI(newWord)
 
