@@ -42,7 +42,19 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    // toggle switch if dark mode
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      var element = document.getElementById("toggle_switch");
+      element.checked = true
+    }
+
     this.fetchAPI(this.state.wordToGuess)
+  }
+
+  toggleLightDarkMode() {
+    // light == false, dark == true
+    var element = document.getElementById("toggle_switch");
+    console.log(element.checked)
   }
 
   parseResponse(response) {
@@ -259,7 +271,7 @@ class App extends React.Component {
       <div className="App" >
         <div className="navbar">
           <label className="switch">
-            <input type="checkbox"></input>
+            <input id="toggle_switch" type="checkbox" onChange={this.toggleLightDarkMode}></input>
             <span className="slider round"></span>
           </label>
           <a href=''>(Not) Wordle</a>
