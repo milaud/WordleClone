@@ -30,6 +30,7 @@ class App extends React.Component {
       message: "",
       previousGameInfo: [],
       showDefinition: false,
+      score: 0
     }
     /*
     // previousGameInfo holds list that contains all previous words/guesses
@@ -42,19 +43,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    // toggle switch if dark mode
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      var element = document.getElementById("toggle_switch");
-      element.checked = true
-    }
-
     this.fetchAPI(this.state.wordToGuess)
-  }
-
-  toggleLightDarkMode() {
-    // light == false, dark == true
-    var element = document.getElementById("toggle_switch");
-    console.log(element.checked)
   }
 
   parseResponse(response) {
@@ -186,11 +175,13 @@ class App extends React.Component {
     }
 
     if (this.doesGuessMatchWord()) {
+      let prevScore = this.state.score
       this.setState(prevState => ({
         roundOver: true,
         roundWon: true,
         message: "Congrats!",
-        showDefinition: true
+        showDefinition: true,
+        score: prevScore + 1
       }))
     } else if (this.state.currentRow === 5 && this.state.currentGuesses[-1] !== this.state.wordToGuess) {
       this.setState(prevState => ({
@@ -270,10 +261,7 @@ class App extends React.Component {
     return (
       <div className="App" >
         <div className="navbar">
-          <label className="switch">
-            <input id="toggle_switch" type="checkbox" onChange={this.toggleLightDarkMode}></input>
-            <span className="slider round"></span>
-          </label>
+          <label className="score">Score: {this.state.score}</label>
           <a href=''>(Not) Wordle</a>
           <button className="newGameButton" onClick={this.startNewGame.bind(this)}>New Word</button>
         </div>
