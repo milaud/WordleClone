@@ -347,3 +347,39 @@ input:checked+.slider:before {
         width: 5.5em;
     }
 }
+
+@media (prefers-color-scheme: light) {
+    body {
+        background: #FFF;
+        color: #333;
+    }
+
+    .navbar {
+        background-color: lightgray;
+    }
+
+    .navbar a {
+        color: black;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background: #121213;
+        color: white;
+    }
+
+    .tile {
+        color: white;
+        border-color: #3a3a3c;
+    }
+
+    .keyboardButton {
+        background: #818384;
+        color: white;
+    }
+
+    /* #3a3a3c for used/incorrect keyboard letter and board tile */
+
+    /* #818384 for default tile background  */
+}

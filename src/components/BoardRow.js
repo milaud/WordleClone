@@ -70,11 +70,16 @@ class BoardRow extends React.Component {
                 const tileStyleIndex = stylesToSet[index];
                 const tile = `row${rowToUpdate}tile${index}`
                 if (tileStyleIndex === -1) {
-                    // grey
-                    document.getElementById(tile).style = "background-color: grey"
+                    // grey if light mode, else dark
+                    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                        // dark mode
+                        document.getElementById(tile).style = "background-color: #3a3a3c"
+                    } else {
+                        document.getElementById(tile).style = "background-color: grey"
+                    }
                 } else if (tileStyleIndex === 0) {
                     // yellow
-                    document.getElementById(tile).style = "background-color: yellow"
+                    document.getElementById(tile).style = "background-color: #b59f3b"
                 } else if (tileStyleIndex === 1) {
                     // green
                     document.getElementById(tile).style = "background-color: green"
@@ -129,14 +134,21 @@ class BoardRow extends React.Component {
                 if (tileStyleIndex === -1) {
                     // grey
                     if (!(document.getElementById(keyboardKey).style.backgroundColor === "green" ||
-                        document.getElementById(keyboardKey).style.backgroundColor === "yellow")) {
-                        document.getElementById(keyboardKey).style = "background-color: grey"
+                        document.getElementById(keyboardKey).style.backgroundColor === "#b59f3b")) {
+                        
+                        // grey if light mode, else dark
+                        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                            // dark mode
+                            document.getElementById(keyboardKey).style = "background-color: #3a3a3c"
+                        } else {
+                            document.getElementById(keyboardKey).style = "background-color: grey"
+                        }
                     }
                 } else if (tileStyleIndex === 0) {
-                    // yellow
+                    // yellow - #b59f3b
                     if (document.getElementById(keyboardKey).style.backgroundColor === "" ||
                         !document.getElementById(keyboardKey).style.backgroundColor === "green") {
-                        document.getElementById(keyboardKey).style = "background-color: yellow"
+                        document.getElementById(keyboardKey).style = "background-color: #b59f3b"
                     }
                 } else if (tileStyleIndex === 1) {
                     // green
