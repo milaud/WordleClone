@@ -129,10 +129,8 @@ class BoardRow extends React.Component {
             for (let index = 0; index < stylesToSet.length; index++) {
                 const tileStyleIndex = stylesToSet[index];
                 const keyboardKey = wordToAnalyze[index]
-                console.log("Letter to change: ", keyboardKey)
+                //console.log("Letter to change: ", keyboardKey)
                 //console.log(document.getElementById(keyboardKey).style)
-                console.log(document.getElementById(keyboardKey).style.backgroundColor)
-                console.log("\n")
                 if (tileStyleIndex === -1) {
                     // grey
                     let colorsToNotChange = ["green", "#b59f3b", "rgb(181, 159, 59)"]
