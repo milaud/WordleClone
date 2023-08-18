@@ -129,13 +129,14 @@ class BoardRow extends React.Component {
             for (let index = 0; index < stylesToSet.length; index++) {
                 const tileStyleIndex = stylesToSet[index];
                 const keyboardKey = wordToAnalyze[index]
-                //console.log("Letter to change: ", keyboardKey)
+                console.log("Letter to change: ", keyboardKey)
                 //console.log(document.getElementById(keyboardKey).style)
+                console.log(document.getElementById(keyboardKey).style.backgroundColor)
+                console.log("\n")
                 if (tileStyleIndex === -1) {
                     // grey
-                    if (!(document.getElementById(keyboardKey).style.backgroundColor === "green" ||
-                        document.getElementById(keyboardKey).style.backgroundColor === "#b59f3b")) {
-                        
+                    let colorsToNotChange = ["green", "#b59f3b", "rgb(181, 159, 59)"]
+                    if (!colorsToNotChange.includes(document.getElementById(keyboardKey).style.backgroundColor)) {
                         // grey if light mode, else dark
                         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
                             // dark mode
@@ -146,7 +147,8 @@ class BoardRow extends React.Component {
                     }
                 } else if (tileStyleIndex === 0) {
                     // yellow - #b59f3b
-                    if (document.getElementById(keyboardKey).style.backgroundColor === "" ||
+                    let colorsToChange = ["", "#818384", "3a3a3c", "rgb(58, 58, 60)"]
+                    if (colorsToChange.includes(document.getElementById(keyboardKey).style.backgroundColor) || 
                         !document.getElementById(keyboardKey).style.backgroundColor === "green") {
                         document.getElementById(keyboardKey).style = "background-color: #b59f3b"
                     }
